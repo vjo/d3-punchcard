@@ -19,7 +19,7 @@
     "d3-module"
   ],
   "author": "Victor Jolissaint",
-  "license": "BSD-3-Clause",
+  "license": "MIT",
   "dependencies": {
     "d3": "^4.5.0"
   },
