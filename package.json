@@ -9,7 +9,8 @@
     "url": "https://github.com/vjo/d3-punchcard.git"
   },
   "scripts": {
-    "build": "babel src/index.js -o build/d3-punchcard.js --source-maps",
+    "dev": "webpack \"--watch\"",
+    "build": "NODE_ENV=production webpack",
     "lint": "eslint src/index.js",
     "prepublish": "uglifyjs build/d3-punchcard.js -c -m -o build/d3-punchcard.min.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -21,14 +22,19 @@
   "author": "Victor Jolissaint",
   "license": "MIT",
   "dependencies": {
-    "d3": "^4.5.0"
+    "d3": "^4.5.0",
+    "eslint-loader": "^1.6.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.22.2",
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
     "babel-preset-env": "^1.1.8",
+    "babel-preset-es2015": "^6.22.0",
     "eslint": "^3.15.0",
     "eslint-config-airbnb-base": "^11.0.1",
     "eslint-plugin-import": "^2.2.0",
-    "uglify-js": "^2.7.5"
+    "uglify-js": "^2.7.5",
+    "uglify-loader": "^1.4.0",
+    "webpack": "^2.2.1"
   }
 }
