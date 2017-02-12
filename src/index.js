@@ -10,6 +10,7 @@ import {
 
 const utils = {
   findAncestor(el, cls) {
+    // eslint-disable-next-line
     while ((el = el.parentElement) && !el.classList.contains(cls));
     return el;
   },
@@ -90,11 +91,7 @@ class Punchcard {
       .attr('transform', 'translate(100, 380)')
       .call(axisBottom(this.x)
         .ticks(timeMinute, 60)
-        .tickFormat((interval, specifier) => {
-          if (specifier !== 24) {
-            return this.formatTime(interval);
-          }
-        })
+        .tickFormat((interval, specifier) => (specifier !== 24) && this.formatTime(interval))
         .tickPadding(4)
       );
 
