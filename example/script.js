@@ -1,23 +1,23 @@
 var data = [{
-  day: 'Monday',
+  label: 'Monday',
   values: [0,0,0,0,0,0,0,0,4,22,0,0,0,0,0,1,0,0,4,9,8,2,7,3],
 },{
-  day: 'Tuesday',
+  label: 'Tuesday',
   values: [0,0,0,0,0,0,0,0,6,21,0,0,0,1,0,0,0,1,4,9,5,4,6,6],
 },{
-  day: 'Wednesday',
+  label: 'Wednesday',
   values: [2,0,0,0,0,2,0,0,4,29,2,0,0,0,0,0,0,1,9,9,7,4,4,10],
 },{
-  day: 'Thursday',
+  label: 'Thursday',
   values: [0,0,1,1,0,0,0,0,4,29,3,0,0,0,0,0,2,0,7,7,6,4,7,7],
 },{
-  day: 'Friday',
+  label: 'Friday',
   values: [1,0,2,2,1,0,2,0,7,22,1,0,0,1,0,1,2,2,4,4,6,4,4,6],
 },{
-  day: 'Saturday',
+  label: 'Saturday',
   values: [3,0,2,2,1,0,0,0,0,2,1,3,5,1,2,6,1,8,4,5,3,1,0,4],
 },{
-  day: 'Sunday',
+  label: 'Sunday',
   values: [2,0,0,0,0,0,0,1,0,0,2,2,2,2,1,1,3,0,0,2,2,1,0,3],
 }];
 

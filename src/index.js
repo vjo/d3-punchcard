@@ -108,11 +108,11 @@ class Punchcard {
 
   drawYText() {
     this.svg.append('text')
-      .attr('class', 'text')
+      .attr('class', 'label')
       .attr('x', 0 - this.margin.left)
       .attr('y', this.heightRow - this.margin.bottom)
       .style('text-anchor', 'start')
-      .text(data => data.day);
+      .text(data => data.label);
   }
 
   // eslint-disable-next-line

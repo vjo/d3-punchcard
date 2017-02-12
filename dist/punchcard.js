@@ -16594,8 +16594,8 @@ var Punchcard = function () {
   }, {
     key: 'drawYText',
     value: function drawYText() {
-      this.svg.append('text').attr('class', 'text').attr('x', 0 - this.margin.left).attr('y', this.heightRow - this.margin.bottom).style('text-anchor', 'start').text(function (data) {
-        return data.day;
+      this.svg.append('text').attr('class', 'label').attr('x', 0 - this.margin.left).attr('y', this.heightRow - this.margin.bottom).style('text-anchor', 'start').text(function (data) {
+        return data.label;
       });
     }
 
