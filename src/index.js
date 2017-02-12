@@ -88,7 +88,7 @@ class Punchcard {
   drawXAxis() {
     this.element.append('g')
       .attr('class', 'axis-label')
-      .attr('transform', 'translate(100, 380)')
+      .attr('transform', `translate(100, ${this.height - 20})`)
       .call(axisBottom(this.x)
         .ticks(timeMinute, 60)
         .tickFormat((interval, specifier) => (specifier !== 24) && this.formatTime(interval))
