@@ -112,8 +112,10 @@ class Punchcard {
       .text(data => data.day);
   }
 
+  // eslint-disable-next-line
   drawPointMarks(data) {
     this.marks = this.svg.selectAll('g')
+        // eslint-disable-next-line
         .data(data => data.values)
       .enter().append('g')
         .attr('class', 'mark')
