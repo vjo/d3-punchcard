@@ -91,7 +91,10 @@ class Punchcard {
       .attr('transform', `translate(100, ${this.height - 20})`)
       .call(axisBottom(this.x)
         .ticks(timeMinute, 60)
-        .tickFormat((interval, specifier) => (specifier !== 24) && this.formatTime(interval))
+        .tickFormat((interval, specifier) => {
+          if (specifier === 24) { return null; }
+          return this.formatTime(interval);
+        })
         .tickPadding(4)
       );
 
