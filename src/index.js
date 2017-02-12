@@ -47,8 +47,8 @@ class Punchcard {
     this.element = select(this.target);
 
     this.element
-      .style('width', this.width)
-      .style('height', this.height);
+      .style('width', `${this.width}px`)
+      .style('height', `${this.height}px`);
 
     this.offset = this.element.node().getBoundingClientRect();
 
