@@ -4,6 +4,7 @@
     "import"
   ],
   "rules": {
-    "comma-dangle": ["warn", "always-multiline"]
+    "comma-dangle": ["warn", "always-multiline"],
+    "no-mixed-operators": ["error", {"allowSamePrecedence": true}]
   }
 }
