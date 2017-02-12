@@ -24,4 +24,6 @@ var chart = new punchcard({
 });
 ```
 
+See [example](https://github.com/vjo/d3-punchcard/tree/master/example) for more details.
+
 [screenshot]: https://github.com/vjo/d3-punchcard/blob/master/screenshot.png
