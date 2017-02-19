@@ -42,5 +42,7 @@ var chart1 = new punchcard({
       'text-anchor': 'start',
     },
     xAxisText: { stroke: '#93a5cf' },
+    tooltip: { background: 'rgba(168, 237, 234, 0.8)', color: '#000' },
+    tooltipArrow: { 'border-top-color': 'rgba(168, 237, 234, 0.8)' },
   },
 });
