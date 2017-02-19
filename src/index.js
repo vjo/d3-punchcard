@@ -86,6 +86,10 @@ class Punchcard {
 
   set(config) {
     Object.assign(this, defaults, config);
+    this.styles = {
+      ...defaults.styles,
+      ...config.styles,
+    };
     this.heightRow = (this.height - this.margin.top) / this.data.length;
   }
 
