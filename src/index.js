@@ -3,10 +3,11 @@ import {
   max,
   scaleSqrt,
   scaleTime,
-  select,
   timeFormat,
   timeMinute,
 } from 'd3';
+import { select } from 'd3-selection';
+import 'd3-selection-multi';
 
 const utils = {
   findAncestor(el, cls) {
@@ -30,6 +31,51 @@ const defaults = {
   tickSize: 12,
   maxDotRadius: 14,
   data: undefined,
+  styles: {
+    axisLine: {
+      stroke: '#B2B2B2',
+    },
+    rowTick: {
+      stroke: '#B2B2B2',
+    },
+    dot: {
+      fill: '#3E3E3E',
+    },
+    label: {
+      fill: '#8A8A8A',
+      'text-anchor': 'start',
+    },
+    xAxisText: {
+      stroke: '#3E3E3E',
+    },
+    tooltipContainer: {
+      display: 'none',
+      position: 'absolute',
+    },
+    tooltip: {
+      background: 'rgba(0, 0, 0, 0.8)',
+      'border-radius': '4px',
+      color: '#FFF',
+      font: '10px sans-serif',
+      height: '12px',
+      'margin-top': '-42px',
+      padding: '8px',
+      'pointer-events': 'none',
+      position: 'absolute',
+      'text-align': 'center',
+      width: '40px',
+    },
+    tooltipArrow: {
+      'border-left': '6px solid transparent',
+      'border-right': '6px solid transparent',
+      'border-top': '6px solid rgba(0, 0, 0, 0.8)',
+      height: '0',
+      left: '22px',
+      position: 'absolute',
+      top: '-14px',
+      width: '0',
+    },
+  },
 };
 
 class Punchcard {
@@ -44,21 +90,17 @@ class Punchcard {
   }
 
   init() {
-    this.element = select(this.target);
-
-    this.element
-      .style('width', `${this.width}px`)
-      .style('height', `${this.height}px`);
+    this.element = select(this.target)
+      .styles({
+        width: `${this.width}px`,
+        height: `${this.height}px`,
+      });
 
     this.offset = this.element.node().getBoundingClientRect();
 
     this.formatTime = timeFormat(this.timeFormat);
 
     this.values = this.data.map(d => d.values);
-
-    this.tooltip = select('body').append('div')
-      .attr('class', 'tooltip')
-      .style('display', 'none');
 
     this.x = scaleTime()
       .domain([new Date(2000, 0, 1), new Date(2000, 0, 2)])
@@ -68,10 +110,26 @@ class Punchcard {
       .domain([0, max(this.values, value => max(value))])
       .range([0, this.maxDotRadius]);
 
+    this.initTooltip();
     this.drawRow(this.data);
     this.drawXAxis();
     this.drawYText();
     this.drawPointMarks(this.data);
+  }
+
+  initTooltip() {
+    // XXX can not use :after pseudo selector so adding lot of divs
+    this.tooltipContainer = select('body').append('div')
+      .attr('class', 'tooltip-container')
+      .styles(this.styles.tooltipContainer);
+
+    this.tooltip = this.tooltipContainer.append('div')
+      .attr('class', 'tooltip')
+      .styles(this.styles.tooltip);
+
+    this.tooltipContainer.append('div')
+      .attr('class', 'tooltip-arrow')
+      .styles(this.styles.tooltipArrow);
   }
 
   drawRow(data) {
@@ -97,9 +155,13 @@ class Punchcard {
         })
         .tickPadding(4)
       );
+    this.element.selectAll('line').remove();
+    this.element.selectAll('.domain').remove();
+    this.element.selectAll('text').styles(this.styles.xAxisText);
 
     this.svg.append('line')
       .attr('class', 'axis-line')
+      .styles(this.styles.axisLine)
       .attr('x1', 0 - this.margin.left)
       .attr('y1', this.heightRow + this.margin.bottom)
       .attr('x2', this.width - this.margin.left - this.margin.right)
@@ -109,9 +171,9 @@ class Punchcard {
   drawYText() {
     this.svg.append('text')
       .attr('class', 'label')
+      .styles(this.styles.label)
       .attr('x', 0 - this.margin.left)
       .attr('y', this.heightRow - this.margin.bottom)
-      .style('text-anchor', 'start')
       .text(data => data.label);
   }
 
@@ -126,14 +188,16 @@ class Punchcard {
 
     this.marks.append('circle')
       .attr('class', 'dot')
+      .styles(this.styles.dot)
       .attr('r', d => this.dotRadius(d))
       .attr('cx', 0)
       .attr('cy', this.heightRow - 18)
       .on('mouseover', this.mouseover.bind(this))
-      .on('mouseout', () => this.tooltip.style('display', 'none'));
+      .on('mouseout', () => this.tooltipContainer.style('display', 'none'));
 
     this.marks.append('line')
-      .attr('class', 'tick')
+      .attr('class', 'row-tick')
+      .styles(this.styles.rowTick)
       .attr('x1', 0)
       .attr('y1', this.heightRow + this.margin.bottom)
       .attr('x2', 0)
@@ -154,9 +218,14 @@ class Punchcard {
       - 8 // XXX
       + this.offset.top;
 
-    this.tooltip.style('display', 'inline')
-      .style('left', `${xPosition}px`)
-      .style('top', `${yPosition}px`)
+    this.tooltipContainer
+      .styles({
+        display: 'inline',
+        left: `${xPosition}px`,
+        top: `${yPosition}px`,
+      });
+
+    this.tooltip
       .html(`<span>${data}</span>`);
   }
 }
