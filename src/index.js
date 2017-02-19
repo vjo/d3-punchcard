@@ -90,6 +90,16 @@ class Punchcard {
       ...defaults.styles,
       ...config.styles,
     };
+    if (config.styles) {
+      this.styles.tooltip = {
+        ...defaults.styles.tooltip,
+        ...config.styles.tooltip,
+      };
+      this.styles.tooltipArrow = {
+        ...defaults.styles.tooltipArrow,
+        ...config.styles.tooltipArrow,
+      };
+    }
     this.heightRow = (this.height - this.margin.top) / this.data.length;
   }
 

@@ -21255,6 +21255,10 @@ var Punchcard = function () {
     value: function set(config) {
       Object.assign(this, defaults, config);
       this.styles = _extends({}, defaults.styles, config.styles);
+      if (config.styles) {
+        this.styles.tooltip = _extends({}, defaults.styles.tooltip, config.styles.tooltip);
+        this.styles.tooltipArrow = _extends({}, defaults.styles.tooltipArrow, config.styles.tooltipArrow);
+      }
       this.heightRow = (this.height - this.margin.top) / this.data.length;
     }
   }, {
